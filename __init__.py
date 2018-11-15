@@ -43,6 +43,8 @@ class ImdbSkill(MycroftSkill):
         LOG.info("**START**")
         LOG.info(message.data)
         LOG.info("****")
+        LOG.info(message.data.get('phrase'))
+        LOG.info("****")
         LOG.info(message.data.get('utterance'))
         LOG.info("**END**")		
 
