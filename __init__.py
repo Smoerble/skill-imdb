@@ -41,6 +41,8 @@ class ImdbSkill(MycroftSkill):
         #    dialogs/en-us/imdb.dialog
         self.speak_dialog("imdb")
         LOG.info("**START**")
+        LOG.info(message.data)
+        LOG.info("****")
         LOG.info(message.data.get('utterance'))
         LOG.info("**END**")		
 
