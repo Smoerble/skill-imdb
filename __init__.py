@@ -23,7 +23,7 @@ class ImdbSkill(MycroftSkill):
 
     def initialize(self):
         intent = IntentBuilder("ImdbIntent").require("Imdb").build()
-        self.register_intent(intent, self.handle_intent)
+        self.register_intent(intent, self.handle_imdb_intent)
 
     # The "handle_xxxx_intent" function is triggered by Mycroft when the
     # skill's intent is matched.  The intent is defined by the IntentBuilder()
