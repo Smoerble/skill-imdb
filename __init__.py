@@ -39,9 +39,9 @@ class ImdbSkill(MycroftSkill):
         # In this case, respond by simply speaking a canned response.
         # Mycroft will randomly speak one of the lines from the file
         #    dialogs/en-us/imdb.dialog
-		print(message)
+ 		print(message)       
 		self.speak_dialog("imdb")
-
+		
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
     # is extremely simple, there is no need to override it.  If you DO
