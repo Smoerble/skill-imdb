@@ -15,11 +15,11 @@ import json
 
 def getRatingFor(title):
     request = baseURL + "t=" + title
-    print request
+    #print request
     r = requests.get(request)
     imdbinfo = r.json()
     if "Error" in imdbinfo:
-        print (imdbinfo["Error"])
+        LOG.info(imdbinfo["Error"])
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
     outtext = "%s has a i.m.d.b. rating of %s." % (imdbinfo["Title"], imdbrating)
