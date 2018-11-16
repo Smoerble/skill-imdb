@@ -67,25 +67,17 @@ class ImdbSkill(MycroftSkill):
         self.register_intent(dialogIntent, self.handle_dialog_intent)
 
     def handle_imdb_intent(self, message):
-        LOG.info("**START**")
-        LOG.info("Key " + str(message.data.get('key')))
-        LOG.info("Message " + str(message.data.get('utterance')))
-        LOG.info("**END**")
         movieTitle = getMovieFromPhrase(message.data.get('utterance'), "rating for")
-        LOG.info(movieTitle)
+        LOG.info("Movie Title: " + movieTitle)
         rating = getRatingFor(movieTitle)
-        LOG.info(rating)
+        LOG.info("Message: " + rating)
         self.speak_dialog(rating)
 
     def handle_actors_intent(self, message):
-        LOG.info("**START**")
-        LOG.info("Key " + str(message.data.get('key')))
-        LOG.info("Message " + str(message.data.get('utterance')))
-        LOG.info("**END**")
         movieTitle = getMovieFromPhrase(message.data.get('utterance'), "actors for")
-        LOG.info(movieTitle)
+        LOG.info("Movie Title: " + movieTitle)
         actors = getActorsFor(movieTitle)
-        LOG.info(actors)
+        LOG.info("Message: " + actors)
         self.speak_dialog(actors)
 
     # The "handle_xxxx_intent" function is triggered by Mycroft when the
