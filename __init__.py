@@ -41,8 +41,8 @@ def getActorsFor(title):
     outtext = "%s has the following actors %s." % (imdbinfo["Title"], actors)
     return outtext
 
-def getMovieFromPhrase(phrase):
-    output = phrase.split("rating for")
+def getMovieFromPhrase(phrase, keyword):
+    output = phrase.split(keyword)
     return output[-1].strip()
 
 
@@ -71,7 +71,7 @@ class ImdbSkill(MycroftSkill):
         LOG.info("Key " + str(message.data.get('key')))
         LOG.info("Message " + str(message.data.get('utterance')))
         LOG.info("**END**")
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'))
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "rating for")
         LOG.info(movieTitle)
         rating = getRatingFor(movieTitle)
         LOG.info(rating)
@@ -82,7 +82,7 @@ class ImdbSkill(MycroftSkill):
         LOG.info("Key " + str(message.data.get('key')))
         LOG.info("Message " + str(message.data.get('utterance')))
         LOG.info("**END**")
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'))
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "actors for")
         LOG.info(movieTitle)
         actors = getActorsFor(movieTitle)
         LOG.info(actors)
