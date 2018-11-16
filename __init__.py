@@ -10,7 +10,26 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
-import mycroft_imdb
+import requests
+import json
+
+def getRatingFor(title):
+    request = baseURL + "t=" + title
+    print request
+    r = requests.get(request)
+    imdbinfo = r.json()
+    if "Error" in imdbinfo:
+        print (imdbinfo["Error"])
+    #		sys.exit()
+    imdbrating = imdbinfo["imdbRating"]
+    outtext = "%s has a i.m.d.b. rating of %s." % (imdbinfo["Title"], imdbrating)
+    return outtext
+
+
+def getMovieFromPhrase(phrase):
+    output = phrase.split("rating for")
+    return output[-1]
+
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -48,9 +67,9 @@ class ImdbSkill(MycroftSkill):
         LOG.info("****")
         LOG.info(message.data.get('utterance'))
         LOG.info("****")
-        movieTitle = mycroft_imdb.getMovieFromPhrase(message.data.get('utterance'))
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'))
         LOG.info(movieTitle)
-        rating = mycroft_imdb.getRatingFor(movieTitle)
+        rating = getRatingFor(movieTitle)
         LOG.info(rating)
         LOG.info("**END**")		
 
