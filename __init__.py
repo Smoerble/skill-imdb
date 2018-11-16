@@ -65,8 +65,8 @@ class ImdbSkill(MycroftSkill):
         # Mycroft will randomly speak one of the lines from the file
         #    dialogs/en-us/imdb.dialog
         LOG.info("**START**")
-        LOG.info("Key " + message.data.get('key'))
-        LOG.info("Message " + message.data.get('utterance'))
+        LOG.info("Key " + str(message.data.get('key')))
+        LOG.info("Message " + str(message.data.get('utterance')))
         LOG.info("**END**")
         movieTitle = getMovieFromPhrase(message.data.get('utterance'))
         LOG.info(movieTitle)
