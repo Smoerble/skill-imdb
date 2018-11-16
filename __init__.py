@@ -21,6 +21,7 @@ def getRatingFor(title):
     imdbinfo = r.json()
     if "Error" in imdbinfo:
         LOG.info(imdbinfo["Error"])
+        return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
     outtext = "%s has a i.m.d.b. rating of %s." % (imdbinfo["Title"], imdbrating)
@@ -43,8 +44,11 @@ class ImdbSkill(MycroftSkill):
         super(ImdbSkill, self).__init__(name="ImdbSkill")
 
     def initialize(self):
-        intent = IntentBuilder("ImdbIntent").require("Imdb").build()
-        self.register_intent(intent, self.handle_imdb_intent)
+        imdbIntent = IntentBuilder("ImdbIntent").require("Imdb").build()
+        self.register_intent(imdbIntent, self.handle_imdb_intent)
+
+        dialogIntent = IntentBuilder("DialogIntent").require("Hello").build()
+        self.register_intent(dialogIntent, self.handle_dialog_intent)
 
     # The "handle_xxxx_intent" function is triggered by Mycroft when the
     # skill's intent is matched.  The intent is defined by the IntentBuilder()
@@ -63,7 +67,7 @@ class ImdbSkill(MycroftSkill):
         LOG.info("**START**")
         LOG.info(message.data)
         LOG.info("****")
-        LOG.info(message.data.get('phrase'))
+        LOG.info(message.data.get('key'))
         LOG.info("****")
         LOG.info(message.data.get('utterance'))
         LOG.info("****")
@@ -73,6 +77,9 @@ class ImdbSkill(MycroftSkill):
         LOG.info(rating)
         self.speak_dialog(rating)
         LOG.info("**END**")
+
+    def handle_dialog_intent(self, message):
+        self.speak_dialog("Hello")
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
