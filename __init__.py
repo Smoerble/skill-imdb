@@ -26,7 +26,7 @@ def getRatingFor(title):
         #return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
-    imdbrating.replace("."," Punkt ")
+    imdbrating = imdbrating.replace("."," Punkt ")
     outtext = "%s hat eine Bewertung von %s." % (imdbinfo["Title"], imdbrating)
     #outtext = "%s has a IMDB rating of %s." % (imdbinfo["Title"], imdbrating)
     return outtext
