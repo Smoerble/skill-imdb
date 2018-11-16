@@ -12,6 +12,7 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 import requests
 import json
+import re
 
 def getRatingFor(title):
     baseURL = "http://www.omdbapi.com/?apikey=7726e540&"
@@ -25,6 +26,7 @@ def getRatingFor(title):
         #return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
+    imdbrating.replace("."," Punkt ")
     outtext = "%s hat eine Bewertung von %s." % (imdbinfo["Title"], imdbrating)
     #outtext = "%s has a IMDB rating of %s." % (imdbinfo["Title"], imdbrating)
     return outtext
