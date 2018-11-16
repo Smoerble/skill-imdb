@@ -71,14 +71,14 @@ class ImdbSkill(MycroftSkill):
         self.register_intent(dialogIntent, self.handle_dialog_intent)
 
     def handle_imdb_intent(self, message):
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "rating hat")
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "bewertung hat")
         LOG.info("Movie Title: " + movieTitle)
         rating = getRatingFor(movieTitle)
         LOG.info("Message: " + rating)
         self.speak_dialog(rating)
 
     def handle_actors_intent(self, message):
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "Schauspieler für")
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "Schauspieler von")
         LOG.info("Movie Title: " + movieTitle)
         actors = getActorsFor(movieTitle)
         LOG.info("Message: " + actors)
