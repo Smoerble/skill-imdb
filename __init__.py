@@ -46,6 +46,8 @@ class ImdbSkill(MycroftSkill):
         LOG.info(message.data.get('phrase'))
         LOG.info("****")
         LOG.info(message.data.get('utterance'))
+        LOG.info("****")
+        LOG.info(message.data.get('MovieTitle'))
         LOG.info("**END**")		
 
     # The "stop" method defines what Mycroft does when told to stop during
