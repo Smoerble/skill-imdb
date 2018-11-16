@@ -14,6 +14,7 @@ import requests
 import json
 
 def getRatingFor(title):
+    baseURL = "http://www.omdbapi.com/?apikey=7726e540&"
     request = baseURL + "t=" + title
     #print request
     r = requests.get(request)
