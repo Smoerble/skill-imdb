@@ -24,9 +24,22 @@ def getRatingFor(title):
         return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
-    outtext = "%s has a i.m.d.b. rating of %s." % (imdbinfo["Title"], imdbrating)
+    outtext = "%s has a IMDB rating of %s." % (imdbinfo["Title"], imdbrating)
     return outtext
 
+def getActorsFor(title):
+    baseURL = "http://www.omdbapi.com/?apikey=7726e540&"
+    request = baseURL + "t=" + title
+    #print request
+    r = requests.get(request)
+    imdbinfo = r.json()
+    if "Error" in imdbinfo:
+        LOG.info(imdbinfo["Error"])
+        return "I am sorry, I don't know the movie %s" % title
+    #		sys.exit()
+    actors = imdbinfo["Actors"]
+    outtext = "%s has the following actors %s." % (imdbinfo["Title"], actors)
+    return outtext
 
 def getMovieFromPhrase(phrase):
     output = phrase.split("rating for")
@@ -47,8 +60,33 @@ class ImdbSkill(MycroftSkill):
         imdbIntent = IntentBuilder("ImdbIntent").require("Imdb").build()
         self.register_intent(imdbIntent, self.handle_imdb_intent)
 
+        imdbActorsIntent = IntentBuilder("ActorsIntent").require("Actors").build()
+        self.register_intent(imdbActorsIntent, self.handle_actors_intent)
+
         dialogIntent = IntentBuilder("DialogIntent").require("Hello").build()
         self.register_intent(dialogIntent, self.handle_dialog_intent)
+
+    def handle_imdb_intent(self, message):
+        LOG.info("**START**")
+        LOG.info("Key " + str(message.data.get('key')))
+        LOG.info("Message " + str(message.data.get('utterance')))
+        LOG.info("**END**")
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'))
+        LOG.info(movieTitle)
+        rating = getRatingFor(movieTitle)
+        LOG.info(rating)
+        self.speak_dialog(rating)
+
+    def handle_actors_intent(self, message):
+        LOG.info("**START**")
+        LOG.info("Key " + str(message.data.get('key')))
+        LOG.info("Message " + str(message.data.get('utterance')))
+        LOG.info("**END**")
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'))
+        LOG.info(movieTitle)
+        actors = getActorsFor(movieTitle)
+        LOG.info(actors)
+        self.speak_dialog(actors)
 
     # The "handle_xxxx_intent" function is triggered by Mycroft when the
     # skill's intent is matched.  The intent is defined by the IntentBuilder()
@@ -60,20 +98,10 @@ class ImdbSkill(MycroftSkill):
     # In this example that means it would match on utterances like:
     #   'imdb'
     #   'movie database'
-    def handle_imdb_intent(self, message):
-        # In this case, respond by simply speaking a canned response.
-        # Mycroft will randomly speak one of the lines from the file
-        #    dialogs/en-us/imdb.dialog
-        LOG.info("**START**")
-        LOG.info("Key " + str(message.data.get('key')))
-        LOG.info("Message " + str(message.data.get('utterance')))
-        LOG.info("**END**")
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'))
-        LOG.info(movieTitle)
-        rating = getRatingFor(movieTitle)
-        LOG.info(rating)
-        self.speak_dialog(rating)
 
+    # In this case, respond by simply speaking a canned response.
+    # Mycroft will randomly speak one of the lines from the file
+    #    dialogs/en-us/imdb.hello.dialog
     def handle_dialog_intent(self, message):
         self.speak_dialog("imdb.hello")
 
