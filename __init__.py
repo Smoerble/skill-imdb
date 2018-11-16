@@ -21,7 +21,8 @@ def getRatingFor(title):
     imdbinfo = r.json()
     if "Error" in imdbinfo:
         LOG.info(imdbinfo["Error"])
-        return "I am sorry, I don't know the movie %s" % title
+        return "Es tut mir Leid, aber ich kenne %s noch nicht." % title
+        #return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
     outtext = "%s has a IMDB rating of %s." % (imdbinfo["Title"], imdbrating)
@@ -35,7 +36,8 @@ def getActorsFor(title):
     imdbinfo = r.json()
     if "Error" in imdbinfo:
         LOG.info(imdbinfo["Error"])
-        return "I am sorry, I don't know the movie %s" % title
+        return "Es tut mir Leid, aber ich kenne %s noch nicht." % title
+        #return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     actors = imdbinfo["Actors"]
     outtext = "%s has the following actors %s." % (imdbinfo["Title"], actors)
@@ -67,14 +69,14 @@ class ImdbSkill(MycroftSkill):
         self.register_intent(dialogIntent, self.handle_dialog_intent)
 
     def handle_imdb_intent(self, message):
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "rating for")
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "rating hat")
         LOG.info("Movie Title: " + movieTitle)
         rating = getRatingFor(movieTitle)
         LOG.info("Message: " + rating)
         self.speak_dialog(rating)
 
     def handle_actors_intent(self, message):
-        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "actors for")
+        movieTitle = getMovieFromPhrase(message.data.get('utterance'), "Schauspieler für")
         LOG.info("Movie Title: " + movieTitle)
         actors = getActorsFor(movieTitle)
         LOG.info("Message: " + actors)
