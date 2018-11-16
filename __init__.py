@@ -25,7 +25,8 @@ def getRatingFor(title):
         #return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     imdbrating = imdbinfo["imdbRating"]
-    outtext = "%s has a IMDB rating of %s." % (imdbinfo["Title"], imdbrating)
+    outtext = "%s hat eine Bewertung von %s." % (imdbinfo["Title"], imdbrating)
+    #outtext = "%s has a IMDB rating of %s." % (imdbinfo["Title"], imdbrating)
     return outtext
 
 def getActorsFor(title):
@@ -40,7 +41,8 @@ def getActorsFor(title):
         #return "I am sorry, I don't know the movie %s" % title
     #		sys.exit()
     actors = imdbinfo["Actors"]
-    outtext = "%s has the following actors %s." % (imdbinfo["Title"], actors)
+    outtext = "Folgende Schauspielder spielen bei %s mit. %s." % (imdbinfo["Title"], actors)
+    #outtext = "%s has the following actors %s." % (imdbinfo["Title"], actors)
     return outtext
 
 def getMovieFromPhrase(phrase, keyword):
