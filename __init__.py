@@ -75,7 +75,7 @@ class ImdbSkill(MycroftSkill):
         self.speak_dialog(rating)
 
     def handle_dialog_intent(self, message):
-        self.speak_dialog("imdbHello")
+        self.speak_dialog("imdb.hello")
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
