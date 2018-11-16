@@ -29,7 +29,7 @@ def getRatingFor(title):
 
 def getMovieFromPhrase(phrase):
     output = phrase.split("rating for")
-    return output[-1]
+    return output[-1].strip()
 
 
 # Each skill is contained within its own class, which inherits base methods
@@ -60,7 +60,6 @@ class ImdbSkill(MycroftSkill):
         # In this case, respond by simply speaking a canned response.
         # Mycroft will randomly speak one of the lines from the file
         #    dialogs/en-us/imdb.dialog
-        self.speak_dialog("imdb")
         LOG.info("**START**")
         LOG.info(message.data)
         LOG.info("****")
@@ -72,7 +71,8 @@ class ImdbSkill(MycroftSkill):
         LOG.info(movieTitle)
         rating = getRatingFor(movieTitle)
         LOG.info(rating)
-        LOG.info("**END**")		
+        self.speak_dialog(rating)
+        LOG.info("**END**")
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
